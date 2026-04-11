@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body class="bg-cloud">
+    <!-- Sidebar -->
+    <aside class="fixed left-0 top-0 h-screen w-64 bg-cloud shadow-lg z-50 border-r border-custom">
+        <div class="p-6 border-b border-custom">
+            <h1 class="text-2xl font-bold text-midnight">Admin Panel</h1>
+            <p class="text-secondary text-sm mt-1">Management System</p>
+        </div>
+
+        <nav class="p-4">
+            <ul class="space-y-2">
+                <li>
+                    <a href="#"
+                        class="flex items-center gap-3 px-4 py-3 rounded-lg bg-deep-plum text-cloud hover:bg-opacity-90">
+                        <i class="fas fa-home w-5"></i>
+                        <span>Dashboard</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="products.html"
+                        class="flex items-center gap-3 px-4 py-3 rounded-lg text-secondary hover:bg-surface-muted hover:text-midnight">
+                        <i class="fas fa-box w-5"></i>
+                        <span>Products</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="add-product.html"
+                        class="flex items-center gap-3 px-4 py-3 rounded-lg text-secondary hover:bg-surface-muted hover:text-midnight ml-4">
+                        <i class="fas fa-plus w-5"></i>
+                        <span>Add Product</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="update-product.html"
+                        class="flex items-center gap-3 px-4 py-3 rounded-lg text-secondary hover:bg-surface-muted hover:text-midnight ml-4">
+                        <i class="fas fa-edit w-5"></i>
+                        <span>Update Product</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="users.html"
+                        class="flex items-center gap-3 px-4 py-3 rounded-lg text-secondary hover:bg-surface-muted hover:text-midnight">
+                        <i class="fas fa-users w-5"></i>
+                        <span>Users</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="orders.html"
+                        class="flex items-center gap-3 px-4 py-3 rounded-lg text-secondary hover:bg-surface-muted hover:text-midnight">
+                        <i class="fas fa-shopping-cart w-5"></i>
+                        <span>Orders</span>
+                    </a>
+                </li>
+
+            </ul>
+        </nav>
+
+        <div class="absolute bottom-0 w-full p-4 border-t border-custom bg-cloud">
+            <div class="px-4 py-3">
+                <div class="flex items-center gap-3 mb-3">
+                    <div class="w-10 h-10 rounded-full bg-deep-plum flex items-center justify-center">
+                        <i class="fas fa-user text-cloud"></i>
+                    </div>
+                    <div>
+                        <p class="text-midnight text-sm font-medium">Admin User</p>
+                        <p class="text-secondary text-xs">admin@example.com</p>
+                    </div>
+                </div>
+                <button id="logoutBtn"
+                    class="w-full flex items-center justify-center gap-2 px-4 py-2 rounded-lg bg-error text-white hover:opacity-90 transition text-sm">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span>Logout</span>
+                </button>
+            </div>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="ml-64 min-h-screen">
+        <!-- Toast Notification -->
+        <div id="toast" class="fixed top-4 right-4 z-50 hidden">
+            <div class="bg-white border-l-4 rounded-lg shadow-lg p-4 min-w-[300px]" id="toastContent">
+                <div class="flex items-center gap-3">
+                    <i class="text-2xl" id="toastIcon"></i>
+                    <div class="flex-1">
+                        <p class="font-semibold text-midnight" id="toastTitle"></p>
+                        <p class="text-sm text-secondary" id="toastMessage"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Top Header -->
+        <header class="bg-surface shadow-sm sticky top-0 z-40">
+            <div class="flex items-center justify-between px-8 py-4">
+                <div class="flex-1 max-w-xl">
+                    <div class="relative">
+                        <input type="text" placeholder="Search products, orders, users..."
+                            class="w-full px-4 py-2 pl-10 rounded-lg border border-custom bg-cloud focus:outline-none focus:ring-2 focus:ring-deep-plum">
+                        <i class="fas fa-search absolute left-3 top-3 text-steel"></i>
+                    </div>
+                </div>
+
+                <div class="flex items-center gap-4 ml-6">
+                    <button class="relative p-2 rounded-lg hover:bg-surface-muted">
+                        <i class="fas fa-bell text-midnight text-xl"></i>
+                        <span
+                            class="absolute -top-1 -right-1 w-5 h-5 bg-error text-white text-xs rounded-full flex items-center justify-center">3</span>
+                    </button>
+
+                    <div class="flex items-center gap-3 pl-4 border-l border-custom">
+                        <div class="text-right">
+                            <p class="text-midnight text-sm font-medium">Admin User</p>
+                            <p class="text-secondary text-xs">Administrator</p>
+                        </div>
+                        <div class="w-10 h-10 rounded-full bg-deep-plum flex items-center justify-center">
+                            <i class="fas fa-user text-cloud"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Dashboard Content -->
+        <div class="p-8">
+            <!-- Page Title -->
+            <div class="mb-8">
+                <h2 class="text-3xl font-bold text-midnight">Dashboard Overview</h2>
+                <p class="text-secondary mt-1">Welcome back! Here's what's happening today.</p>
+            </div>
+
+            <!-- Statistics Cards -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+                <!-- Total Products Card -->
+                <div class="bg-surface rounded-xl shadow-sm p-6 border border-custom hover:shadow-md">
+                    <div class="flex items-center justify-between mb-4">
+                        <i class="fas fa-box text-steel text-xl"></i>
+                    </div>
+                    <h3 class="text-secondary text-sm font-medium mb-1">Total Products</h3>
+                    <p id="totalProducts" class="text-3xl font-bold text-midnight">1,247</p>
+                </div>
+
+                <!-- Total Users Card -->
+                <div class="bg-surface rounded-xl shadow-sm p-6 border border-custom hover:shadow-md">
+                    <div class="flex items-center justify-between mb-4">
+                        <i class="fas fa-users text-steel text-xl"></i>
+                    </div>
+                    <h3 class="text-secondary text-sm font-medium mb-1">Total Users</h3>
+                    <p id="totalUsers" class="text-3xl font-bold text-midnight">8,542</p>
+                </div>
+
+                <!-- Total Orders Card -->
+                <div class="bg-surface rounded-xl shadow-sm p-6 border border-custom hover:shadow-md">
+                    <div class="flex items-center justify-between mb-4">
+                        <i class="fas fa-shopping-cart text-steel text-xl"></i>
+                    </div>
+                    <h3 class="text-secondary text-sm font-medium mb-1">Total Orders</h3>
+                    <p id="totalOrders" class="text-3xl font-bold text-midnight">3,891</p>
+                </div>
+
+
+                <!-- Revenue Card -->
+                <div class="bg-surface rounded-xl shadow-sm p-6 border border-custom hover:shadow-md">
+                    <div class="flex items-center justify-between mb-4">
+                        <i class="fas fa-dollar-sign text-steel text-xl"></i>
+                    </div>
+                    <h3 class="text-secondary text-sm font-medium mb-1">Total Revenue</h3>
+                    <p id="totalRevenue" class="text-3xl font-bold text-midnight">Rs. 89,432</p>
+                </div>
+            </div>
+
+            <!-- REST API Demo Section -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+                <!-- Quote of the Day (REST API Demo #1) -->
+                <div class="bg-surface rounded-lg shadow-sm p-6 border border-custom">
+                    <div class="flex items-start gap-3">
+                        <div class="w-10 h-10 bg-deep-plum rounded-lg flex items-center justify-center flex-shrink-0">
+                            <i class="fas fa-quote-left text-cloud"></i>
+                        </div>
+                        <div class="flex-1">
+                            <h3 class="text-lg font-bold text-midnight mb-2">Quote of the Day</h3>
+                            <p id="quoteText" class="text-sm text-secondary italic mb-2">Loading inspiring quote...</p>
+                            <p id="quoteAuthor" class="text-xs text-steel">— Author</p>
+                            <button onclick="fetchNewQuote()"
+                                class="mt-3 px-3 py-1.5 bg-deep-plum text-cloud rounded-md hover:opacity-90 transition text-xs">
+                                <i class="fas fa-sync-alt mr-1"></i>Get New Quote
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Weather Widget (REST API Demo #2) -->
+                <div class="bg-surface rounded-lg shadow-sm p-6 border border-custom">
+                    <div class="flex items-start gap-3">
+                        <div class="w-10 h-10 bg-info rounded-lg flex items-center justify-center flex-shrink-0">
+                            <i class="fas fa-cloud-sun text-cloud"></i>
+                        </div>
+                        <div class="flex-1">
+                            <h3 class="text-lg font-bold text-midnight mb-2">Current Weather</h3>
+                            <p id="weatherLocation" class="text-sm text-steel mb-1">Colombo, Sri Lanka</p>
+                            <div class="flex items-center gap-3 mb-2">
+                                <p id="weatherTemp" class="text-3xl font-bold text-midnight">--°C</p>
+                                <p id="weatherDesc" class="text-sm text-secondary">Loading...</p>
+                            </div>
+                            <div class="flex gap-4 text-xs text-steel">
+                                <span><i class="fas fa-wind mr-1"></i><span id="weatherWind">-- km/h</span></span>
+                                <span><i class="fas fa-tint mr-1"></i><span id="weatherHumidity">--%</span></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Recent Orders & Quick Stats -->
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
+                <!-- Recent Orders -->
+                <div class="lg:col-span-2 bg-surface rounded-xl shadow-sm border border-custom">
+                    <div class="p-6 border-b border-custom">
+                        <div class="flex items-center justify-between">
+                            <h3 class="text-xl font-bold text-midnight">Recent Orders</h3>
+                            <a href="#" class="text-deep-plum text-sm font-medium hover:underline">View All</a>
+                        </div>
+                    </div>
+                    <div class="overflow-x-auto">
+                        <table class="w-full">
+                            <thead class="bg-surface-muted">
+                                <tr>
+                                    <th
+                                        class="px-6 py-3 text-left text-xs font-medium text-secondary uppercase tracking-wider">
+                                        Order ID</th>
+                                    <th
+                                        class="px-6 py-3 text-left text-xs font-medium text-secondary uppercase tracking-wider">
+                                        Customer</th>
+                                    <th
+                                        class="px-6 py-3 text-left text-xs font-medium text-secondary uppercase tracking-wider">
+                                        Amount</th>
+                                    <th
+                                        class="px-6 py-3 text-left text-xs font-medium text-secondary uppercase tracking-wider">
+                                        Status</th>
+                                    <th
+                                        class="px-6 py-3 text-left text-xs font-medium text-secondary uppercase tracking-wider">
+                                        Date</th>
+                                </tr>
+                            </thead>
+                            <tbody id="recentOrdersBody" class="divide-y divide-custom">
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Order Status Summary -->
+                <div id="topCategories" class="space-y-6">
+                    <!-- Top Categories Card -->
+                    <div class="bg-surface rounded-xl shadow-sm border border-custom p-6">
+                        <h3 class="text-lg font-bold text-midnight mb-4">Top Categories</h3>
+                        <div class="space-y-3">
+                            <div class="flex items-center justify-between p-3 rounded-lg hover:bg-cloud">
+                                <div class="flex items-center gap-3">
+                                    <i class="fas fa-tshirt text-steel"></i>
+                                    <span class="text-sm font-medium text-midnight">Clothing</span>
+                                </div>
+                                <span class="text-sm font-bold text-midnight">432</span>
+                            </div>
+                            <div class="flex items-center justify-between p-3 rounded-lg hover:bg-cloud">
+                                <div class="flex items-center gap-3">
+                                    <i class="fas fa-laptop text-steel"></i>
+                                    <span class="text-sm font-medium text-midnight">Electronics</span>
+                                </div>
+                                <span class="text-sm font-bold text-midnight">289</span>
+                            </div>
+                            <div class="flex items-center justify-between p-3 rounded-lg hover:bg-cloud">
+                                <div class="flex items-center gap-3">
+                                    <i class="fas fa-home text-steel"></i>
+                                    <span class="text-sm font-medium text-midnight">Home Decor</span>
+                                </div>
+                                <span class="text-sm font-bold text-midnight">167</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Recent Products -->
+
+        </div>
+    </main>
+    <script type="module">
+
+        import { db, auth } from "./js/firebase.js";
+        import {
+            collection,
+            getDocs
+        } from "https://www.gstatic.com/firebasejs/12.10.0/firebase-firestore.js";
+        import {
+            signOut,
+            onAuthStateChanged
+        } from "https://www.gstatic.com/firebasejs/12.10.0/firebase-auth.js";
+
+        // ---------------- AUTH GUARD ----------------
+        // Check if user is logged in
+        onAuthStateChanged(auth, (user) => {
+            if (!user) {
+                // User not logged in, redirect to login
+                window.location.href = 'index.html';
+            }
+        });
+
+        let categoryMap = {};
+
+        // ---------------- LOAD CATEGORIES ----------------
+        async function loadCategories() {
+            try {
+                const snap = await getDocs(collection(db, "categories"));
+
+                snap.forEach(doc => {
+                    const data = doc.data();
+                    categoryMap[data.categoryId] = data.name || "Unknown";
+                });
+
+            } catch (error) {
+                console.error("Error loading categories:", error);
+            }
+        }
+
+        // ---------------- LOAD DASHBOARD ----------------
+        async function loadDashboard() {
+
+            try {
+
+                await loadCategories(); // 🔥 must load first
+
+                // -------- PRODUCTS --------
+                const productSnap = await getDocs(collection(db, "products"));
+                document.getElementById("totalProducts").textContent = productSnap.size;
+
+                // -------- USERS --------
+                const userSnap = await getDocs(collection(db, "users"));
+                document.getElementById("totalUsers").textContent = userSnap.size;
+
+                // -------- ORDERS --------
+                const orderSnap = await getDocs(collection(db, "orders"));
+                document.getElementById("totalOrders").textContent = orderSnap.size;
+
+                // -------- REVENUE --------
+                let revenue = 0;
+
+                orderSnap.forEach(doc => {
+                    const order = doc.data();
+                    revenue += order.totalAmount || 0;
+                });
+
+                document.getElementById("totalRevenue").textContent =
+                    "Rs. " + revenue.toLocaleString("en-LK", {
+                        minimumFractionDigits: 2
+                    });
+
+                // -------- LOAD TABLES --------
+                loadRecentOrders(orderSnap);
+                loadTopCategories(productSnap);
+
+            } catch (error) {
+                console.error("Dashboard load error:", error);
+            }
+        }
+
+        // ---------------- RECENT ORDERS ----------------
+        function loadRecentOrders(orderSnap) {
+
+            const tbody = document.getElementById("recentOrdersBody");
+            if (!tbody) return;
+
+            tbody.innerHTML = "";
+
+            let orders = [];
+
+            orderSnap.forEach(doc => {
+                orders.push(doc.data());
+            });
+
+            // Sort latest first
+            orders.sort((a, b) => (b.orderDate || 0) - (a.orderDate || 0));
+
+            // Show only latest 5
+            orders.slice(0, 5).forEach(order => {
+
+                const row = document.createElement("tr");
+
+                row.className = "hover:bg-cloud";
+
+                row.innerHTML = `
+            <td class="px-6 py-4 text-sm font-medium text-midnight">
+                ${order.orderId || "-"}
+            </td>
+            <td class="px-6 py-4 text-sm text-secondary">
+                ${order.shippingAddress?.name || "User"}
+            </td>
+            <td class="px-6 py-4 text-sm text-midnight font-semibold">
+                Rs. ${(order.totalAmount || 0).toLocaleString("en-LK")}
+            </td>
+            <td class="px-6 py-4 text-sm text-secondary">
+                ${order.status || "PENDING"}
+            </td>
+            <td class="px-6 py-4 text-sm text-secondary">
+                ${order.orderDate ? new Date(order.orderDate).toLocaleDateString() : "-"}
+            </td>
+        `;
+
+                tbody.appendChild(row);
+            });
+        }
+
+        // ---------------- TOP CATEGORIES ----------------
+        function loadTopCategories(productSnap) {
+
+            const container = document.getElementById("topCategories");
+            if (!container) return;
+
+            let categoryCount = {};
+
+            productSnap.forEach(doc => {
+                const product = doc.data();
+
+                // 🔥 Convert ID → NAME
+                const catName = categoryMap[product.categoryId] || "Unknown";
+
+                categoryCount[catName] = (categoryCount[catName] || 0) + 1;
+            });
+
+            const sorted = Object.entries(categoryCount)
+                .sort((a, b) => b[1] - a[1])
+                .slice(0, 3);
+
+            container.innerHTML = "";
+
+            sorted.forEach(([name, count]) => {
+
+                const div = document.createElement("div");
+
+                div.className = "flex items-center justify-between p-3 rounded-lg hover:bg-cloud";
+
+                div.innerHTML = `
+            <div class="flex items-center gap-3">
+                <i class="fas fa-tag text-steel"></i>
+                <span class="text-sm font-medium text-midnight">${name}</span>
+            </div>
+            <span class="text-sm font-bold text-midnight">${count}</span>
+        `;
+
+                container.appendChild(div);
+            });
+
+            // If no categories
+            if (sorted.length === 0) {
+                container.innerHTML = `<p class="text-sm text-secondary">No categories found</p>`;
+            }
+        }
+
+        // ---------------- INIT ----------------
+        loadDashboard();
+
+        // ---------------- TOAST NOTIFICATION ----------------
+        function showToast(title, message, type = 'success') {
+            const toast = document.getElementById('toast');
+            const toastContent = document.getElementById('toastContent');
+            const toastIcon = document.getElementById('toastIcon');
+            const toastTitle = document.getElementById('toastTitle');
+            const toastMessage = document.getElementById('toastMessage');
+
+            // Set icon and colors based on type
+            if (type === 'success') {
+                toastIcon.className = 'fas fa-check-circle text-2xl text-success';
+                toastContent.style.borderLeftColor = '#16A34A';
+            } else if (type === 'error') {
+                toastIcon.className = 'fas fa-exclamation-circle text-2xl text-error';
+                toastContent.style.borderLeftColor = '#DC2626';
+            } else if (type === 'info') {
+                toastIcon.className = 'fas fa-info-circle text-2xl text-info';
+                toastContent.style.borderLeftColor = '#2563EB';
+            }
+
+            toastTitle.textContent = title;
+            toastMessage.textContent = message;
+
+            // Show toast
+            toast.classList.remove('hidden');
+
+            // Hide after 3 seconds
+            setTimeout(() => {
+                toast.classList.add('hidden');
+            }, 3000);
+        }
+
+  
+        async function fetchQuote() {
+            try {
+               
+                const response = await fetch('https://api.adviceslip.com/advice', {
+                    method: 'GET', 
+                    cache: 'no-cache'
+                });
+                const data = await response.json();
+
+                document.getElementById('quoteText').textContent = `"${data.slip.advice}"`;
+                document.getElementById('quoteAuthor').textContent = `— Advice Slip #${data.slip.id}`;
+            } catch (error) {
+                console.error('Error fetching quote:', error);
+                document.getElementById('quoteText').textContent = '"Success is not final, failure is not fatal: it is the courage to continue that counts."';
+                document.getElementById('quoteAuthor').textContent = '— Winston Churchill';
+            }
+        }
+
+       
+        async function fetchWeather() {
+            try {
+                // REST API GET Request #2 - Weather for Colombo, Sri Lanka
+                // Coordinates: 6.9271° N, 79.8612° E
+                const response = await fetch('https://api.open-meteo.com/v1/forecast?latitude=6.9271&longitude=79.8612&current_weather=true&timezone=Asia/Colombo', {
+                    method: 'GET' // Explicit GET method for REST API
+                });
+                const data = await response.json();
+
+                const weather = data.current_weather;
+
+                // Update temperature
+                document.getElementById('weatherTemp').textContent = Math.round(weather.temperature) + '°C';
+
+                // Update wind speed
+                document.getElementById('weatherWind').textContent = Math.round(weather.windspeed) + ' km/h';
+
+                // Weather description based on code
+                const weatherDesc = getWeatherDescription(weather.weathercode);
+                document.getElementById('weatherDesc').textContent = weatherDesc;
+
+                // Humidity (using default since Open-Meteo basic doesn't include it)
+                document.getElementById('weatherHumidity').textContent = '65%';
+
+            } catch (error) {
+                console.error('Error fetching weather:', error);
+                document.getElementById('weatherTemp').textContent = '28°C';
+                document.getElementById('weatherDesc').textContent = 'Partly Cloudy';
+            }
+        }
+
+        // Weather code to description mapping
+        function getWeatherDescription(code) {
+            const descriptions = {
+                0: 'Clear sky',
+                1: 'Mainly clear',
+                2: 'Partly cloudy',
+                3: 'Overcast',
+                45: 'Foggy',
+                48: 'Foggy',
+                51: 'Light drizzle',
+                61: 'Light rain',
+                63: 'Moderate rain',
+                80: 'Rain showers',
+                95: 'Thunderstorm'
+            };
+            return descriptions[code] || 'Partly cloudy';
+        }
+
+        // Make fetchNewQuote available globally
+        window.fetchNewQuote = fetchQuote;
+
+        // Load quote and weather on page load
+        fetchQuote();
+        fetchWeather();
+
+        // ---------------- LOGOUT FUNCTIONALITY ----------------
+        document.getElementById('logoutBtn').addEventListener('click', async function () {
+            try {
+                await signOut(auth);
+                showToast('Success!', 'Logged out successfully', 'success');
+                setTimeout(() => {
+                    window.location.href = 'index.html';
+                }, 1500);
+            } catch (error) {
+                console.error('Logout error:', error);
+                showToast('Error!', 'Failed to logout. Please try again.', 'error');
+            }
+        });
+
+    </script>
+</body>
+
+</html>

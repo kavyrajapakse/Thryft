@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Login - Admin Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="bg-cloud">
+    <!-- Toast Notification -->
+    <div id="toast" class="fixed top-4 right-4 z-50 hidden">
+        <div class="bg-white border-l-4 rounded-lg shadow-lg p-4 min-w-[300px]" id="toastContent">
+            <div class="flex items-center gap-3">
+                <i class="text-2xl" id="toastIcon"></i>
+                <div class="flex-1">
+                    <p class="font-semibold text-midnight" id="toastTitle"></p>
+                    <p class="text-sm text-secondary" id="toastMessage"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="min-h-screen flex items-center justify-center p-4">
+        <!-- Login Card -->
+        <div class="w-full max-w-md">
+            <!-- Logo/Header -->
+            <div class="text-center mb-8">
+                <div class="inline-flex items-center justify-center w-16 h-16 bg-deep-plum rounded-full mb-4">
+                    <i class="fas fa-user-shield text-cloud text-2xl"></i>
+                </div>
+                <h1 class="text-3xl font-bold text-midnight mb-2">Admin Panel</h1>
+                <p class="text-secondary">Sign in to your admin account</p>
+            </div>
+
+            <!-- Login Form -->
+            <div class="bg-surface rounded-xl shadow-lg border border-custom p-8">
+                <form id="loginForm">
+                    <!-- Email Field -->
+                    <div class="mb-6">
+                        <label class="block text-sm font-medium text-midnight mb-2">
+                            Email Address <span class="text-error">*</span>
+                        </label>
+                        <div class="relative">
+                            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                <i class="fas fa-envelope text-steel"></i>
+                            </div>
+                            <input
+                                type="email"
+                                name="email"
+                                id="email"
+                                placeholder="admin@example.com"
+                                required
+                                class="w-full pl-10 pr-4 py-3 rounded-lg border border-custom bg-cloud focus:outline-none focus:ring-2 focus:ring-deep-plum focus:border-transparent"
+                            >
+                        </div>
+                    </div>
+
+                    <!-- Password Field -->
+                    <div class="mb-6">
+                        <label class="block text-sm font-medium text-midnight mb-2">
+                            Password <span class="text-error">*</span>
+                        </label>
+                        <div class="relative">
+                            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                <i class="fas fa-lock text-steel"></i>
+                            </div>
+                            <input
+                                type="password"
+                                name="password"
+                                id="password"
+                                placeholder="Enter your password"
+                                required
+                                class="w-full pl-10 pr-12 py-3 rounded-lg border border-custom bg-cloud focus:outline-none focus:ring-2 focus:ring-deep-plum focus:border-transparent"
+                            >
+                            <button
+                                type="button"
+                                onclick="togglePassword()"
+                                class="absolute inset-y-0 right-0 pr-3 flex items-center text-steel hover:text-midnight"
+                            >
+                                <i id="toggleIcon" class="fas fa-eye"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Forgot Password -->
+                    <div class="mb-6 text-right">
+                        <a href="forgot-password.html" class="text-sm text-deep-plum hover:underline font-medium">
+                            Forgot Password?
+                        </a>
+                    </div>
+
+
+                    <!-- Error Message (Hidden by default) -->
+                    <div id="errorMessage" class="hidden mb-6 p-4 bg-error border border-error rounded-lg">
+                        <div class="flex items-center gap-2">
+                            <i class="fas fa-exclamation-circle text-white"></i>
+                            <p class="text-sm text-white" id="errorText">Invalid email or password</p>
+                        </div>
+                    </div>
+
+                    <!-- Login Button -->
+                    <button
+                        type="submit"
+                        class="w-full py-3 bg-deep-plum text-cloud rounded-lg font-medium hover:bg-opacity-90 flex items-center justify-center gap-2"
+                    >
+                        <i class="fas fa-sign-in-alt"></i>
+                        Sign In
+                    </button>
+                </form>
+
+                <!-- Additional Info -->
+                <div class="mt-6 text-center">
+                    <p class="text-xs text-secondary">
+                        Protected by industry-standard encryption
+                    </p>
+                </div>
+            </div>
+
+            <!-- Footer -->
+            <div class="mt-8 text-center">
+                <p class="text-sm text-secondary">
+                    &copy; 2026 Admin Panel. All rights reserved.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <script type="module" src="js/auth.js"></script>
+   
+
+    <script>
+        // Toast notification function
+        window.showToast = function(title, message, type = 'success') {
+            const toast = document.getElementById('toast');
+            const toastContent = document.getElementById('toastContent');
+            const toastIcon = document.getElementById('toastIcon');
+            const toastTitle = document.getElementById('toastTitle');
+            const toastMessage = document.getElementById('toastMessage');
+
+            // Reset shared styles before applying type-specific styles
+            toastContent.style.backgroundColor = '#FFFFFF';
+            toastTitle.style.color = '#111827';
+            toastMessage.style.color = '#6B7280';
+
+            // Set icon and colors based on type
+            if (type === 'success') {
+                toastIcon.className = 'fas fa-check-circle text-2xl text-success';
+                toastContent.style.borderLeftColor = '#16A34A';
+            } else if (type === 'error') {
+                toastIcon.className = 'fas fa-exclamation-circle text-2xl text-white';
+                toastContent.style.borderLeftColor = '#DC2626';
+                toastContent.style.backgroundColor = '#DC2626';
+                toastTitle.style.color = '#FFFFFF';
+                toastMessage.style.color = '#FFFFFF';
+            } else if (type === 'info') {
+                toastIcon.className = 'fas fa-info-circle text-2xl text-info';
+                toastContent.style.borderLeftColor = '#2563EB';
+            }
+
+            toastTitle.textContent = title;
+            toastMessage.textContent = message;
+
+            // Show toast
+            toast.classList.remove('hidden');
+
+            // Hide after 3 seconds
+            setTimeout(() => {
+                toast.classList.add('hidden');
+            }, 3000);
+        };
+
+        // Toggle password visibility
+        function togglePassword() {
+            const passwordInput = document.getElementById('password');
+            const toggleIcon = document.getElementById('toggleIcon');
+
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                toggleIcon.classList.remove('fa-eye');
+                toggleIcon.classList.add('fa-eye-slash');
+            } else {
+                passwordInput.type = 'password';
+                toggleIcon.classList.remove('fa-eye-slash');
+                toggleIcon.classList.add('fa-eye');
+            }
+        }
+
+        // Form submission
+        // document.getElementById('loginForm').addEventListener('submit', function(e) {
+        //     e.preventDefault();
+
+        //     // Get form data
+        //     const email = document.getElementById('email').value;
+        //     const password = document.getElementById('password').value;
+        //     const remember = document.querySelector('input[name="remember"]').checked;
+
+        //     // Hide error message
+        //     document.getElementById('errorMessage').classList.add('hidden');
+
+        //     // Sample validation (replace with actual API call)
+        //     // For demo: admin@example.com / admin123
+        //     if (email === 'admin@example.com' && password === 'admin123') {
+        //         console.log('Login successful:', { email, remember });
+
+        //         // Show success message
+        //         alert('Login successful!');
+
+        //         // Redirect to dashboard
+        //         window.location.href = 'dashboard.html';
+        //     } else {
+        //         // Show error message
+        //         document.getElementById('errorMessage').classList.remove('hidden');
+        //         document.getElementById('errorText').textContent = 'Invalid email or password. Try: admin@example.com / admin123';
+        //     }
+        // });
+
+        // Clear error on input
+        document.getElementById('email').addEventListener('input', function() {
+            document.getElementById('errorMessage').classList.add('hidden');
+        });
+
+        document.getElementById('password').addEventListener('input', function() {
+            document.getElementById('errorMessage').classList.add('hidden');
+        });
+    </script>
+</body>
+</html>

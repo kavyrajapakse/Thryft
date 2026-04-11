@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="sri_lankan_provinces">
+        <item>Western Province</item>
+        <item>Central Province</item>
+        <item>Southern Province</item>
+        <item>Northern Province</item>
+        <item>Eastern Province</item>
+        <item>North Western Province</item>
+        <item>North Central Province</item>
+        <item>Uva Province</item>
+        <item>Sabaragamuwa Province</item>
+    </string-array>
+</resources>

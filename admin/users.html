@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Users - Admin Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @media print {
+            aside, header, button, a, .print-hidden, .filter-section {
+                display: none !important;
+            }
+            main {
+                margin-left: 0 !important;
+            }
+            body {
+                background-color: white !important;
+            }
+            .p-8 {
+                padding: 20px !important;
+            }
+            .print-header {
+                display: block !important;
+                text-align: center;
+                margin-bottom: 30px;
+                padding-bottom: 20px;
+                border-bottom: 2px solid #333;
+            }
+            .print-header h1 {
+                margin: 0;
+                font-size: 24px;
+                font-weight: bold;
+                color: #000;
+            }
+            .print-header p {
+                margin: 5px 0 0 0;
+                font-size: 12px;
+                color: #666;
+            }
+            table {
+                width: 100%;
+                border-collapse: collapse;
+                margin-top: 20px;
+            }
+            thead {
+                background-color: #f5f5f5 !important;
+            }
+            th, td {
+                border: 1px solid #999;
+                padding: 10px;
+                text-align: left;
+                font-size: 12px;
+            }
+            th {
+                background-color: #f5f5f5;
+                font-weight: bold;
+            }
+            tr {
+                page-break-inside: avoid;
+            }
+        }
+    </style>
+</head>
+
+<body class="bg-cloud">
+    <!-- Sidebar -->
+    <aside class="fixed left-0 top-0 h-screen w-64 bg-cloud border-r border-custom shadow-lg z-50">
+        <div class="p-6 border-b border-custom">
+            <h1 class="text-2xl font-bold text-midnight">Admin Panel</h1>
+            <p class="text-secondary text-sm mt-1">Management System</p>
+        </div>
+
+        <nav class="p-4">
+            <ul class="space-y-2">
+                <li>
+                    <a href="dashboard.html"
+                        class="flex items-center gap-3 px-4 py-3 rounded-lg text-secondary hover:bg-surface-muted hover:text-midnight">
+                        <i class="fas fa-home w-5"></i>
+                        <span>Dashboard</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="products.html"
+                        class="flex items-center gap-3 px-4 py-3 rounded-lg text-secondary hover:bg-surface-muted hover:text-midnight">
+                        <i class="fas fa-box w-5"></i>
+                        <span>Products</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="add-product.html"
+                        class="flex items-center gap-3 px-4 py-3 rounded-lg text-secondary hover:bg-surface-muted hover:text-midnight ml-4">
+                        <i class="fas fa-plus w-5"></i>
+                        <span>Add Product</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="update-product.html"
+                        class="flex items-center gap-3 px-4 py-3 rounded-lg text-secondary hover:bg-surface-muted hover:text-midnight ml-4">
+                        <i class="fas fa-edit w-5"></i>
+                        <span>Update Product</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="users.html"
+                        class="flex items-center gap-3 px-4 py-3 rounded-lg bg-deep-plum text-cloud hover:bg-opacity-90">
+                        <i class="fas fa-users w-5"></i>
+                        <span>Users</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="orders.html"
+                        class="flex items-center gap-3 px-4 py-3 rounded-lg text-secondary hover:bg-surface-muted hover:text-midnight">
+                        <i class="fas fa-shopping-cart w-5"></i>
+                        <span>Orders</span>
+                    </a>
+                </li>
+
+            </ul>
+        </nav>
+
+        <div class="absolute bottom-0 w-full p-4 border-t border-custom bg-cloud">
+            <div class="flex items-center gap-3 px-4 py-3">
+                <div class="w-10 h-10 rounded-full bg-deep-plum flex items-center justify-center">
+                    <i class="fas fa-user text-cloud"></i>
+                </div>
+                <div>
+                    <p class="text-midnight text-sm font-medium">Admin User</p>
+                    <p class="text-secondary text-xs">admin@example.com</p>
+                </div>
+            </div>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="ml-64 min-h-screen">
+        <!-- Top Header -->
+        <header class="bg-surface shadow-sm sticky top-0 z-40">
+            <div class="flex items-center justify-between px-8 py-4">
+                <div>
+                    <h1 class="text-xl font-bold text-midnight">Users Management</h1>
+                    <p class="text-sm text-secondary">Manage all registered users</p>
+                </div>
+
+                <div class="flex items-center gap-4">
+                    <div class="relative max-w-md">
+                        <input type="text" id="searchUsers" placeholder="Search users by name or email..."
+                            class="w-full px-4 py-2 pl-10 rounded-lg border border-custom bg-cloud focus:outline-none focus:ring-2 focus:ring-deep-plum">
+                        <i class="fas fa-search absolute left-3 top-3 text-steel"></i>
+                    </div>
+
+                    <button onclick="window.print()" class="p-2 rounded-lg hover:bg-surface-muted text-midnight" title="Print">
+                        <i class="fas fa-print text-lg"></i>
+                    </button>
+
+                    <button class="relative p-2 rounded-lg hover:bg-surface-muted">
+                        <i class="fas fa-bell text-midnight text-xl"></i>
+                        <span
+                            class="absolute -top-1 -right-1 w-5 h-5 bg-error text-white text-xs rounded-full flex items-center justify-center">3</span>
+                    </button>
+
+                    <div class="flex items-center gap-3 pl-4 border-l border-custom">
+                        <div class="text-right">
+                            <p class="text-midnight text-sm font-medium">Admin User</p>
+                            <p class="text-secondary text-xs">Administrator</p>
+                        </div>
+                        <div class="w-10 h-10 rounded-full bg-deep-plum flex items-center justify-center">
+                            <i class="fas fa-user text-cloud"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Users Content -->
+        <div class="p-8">
+            <!-- Users Table -->
+            <div class="bg-surface rounded-xl shadow-sm border border-custom">
+                <div class="p-6 border-b border-custom">
+                    <h3 class="text-xl font-bold text-midnight">All Users</h3>
+                </div>
+
+                <div class="print-header" style="display: none;">
+                    <h1>Users Report</h1>
+                    <p>Generated on <span id="printDate"></span></p>
+                </div>
+
+                <div class="overflow-x-auto">
+                    <table class="w-full">
+                        <thead class="bg-surface-muted">
+                            <tr>
+                                <th
+                                    class="px-6 py-3 text-left text-xs font-medium text-secondary uppercase tracking-wider">
+                                    User ID</th>
+                                <th
+                                    class="px-6 py-3 text-left text-xs font-medium text-secondary uppercase tracking-wider">
+                                    Name</th>
+                                <th
+                                    class="px-6 py-3 text-left text-xs font-medium text-secondary uppercase tracking-wider">
+                                    Email</th>
+                                <th
+                                    class="px-6 py-3 text-left text-xs font-medium text-secondary uppercase tracking-wider">
+                                    Joined Date</th>
+                                <th
+                                    class="px-6 py-3 text-center text-xs font-medium text-secondary uppercase tracking-wider">
+                                    Status</th>
+                            </tr>
+                        </thead>
+                        <tbody id="usersTableBody" class="divide-y divide-custom">
+                            <!-- Sample Data - Replace with dynamic data -->
+
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Pagination -->
+                <div class="p-6 border-t border-custom flex items-center justify-between">
+                    <p class="text-sm text-secondary">Showing <span class="font-medium text-midnight">1</span> to <span
+                            class="font-medium text-midnight">5</span> of <span
+                            class="font-medium text-midnight">8,542</span> users</p>
+                    <div class="flex items-center gap-2">
+                        <button
+                            class="px-3 py-2 border border-custom rounded-lg text-secondary hover:bg-surface-muted disabled:opacity-50"
+                            disabled>
+                            <i class="fas fa-chevron-left"></i> Previous
+                        </button>
+                        <button class="px-4 py-2 bg-deep-plum text-cloud rounded-lg">1</button>
+                        <button
+                            class="px-4 py-2 border border-custom rounded-lg text-midnight hover:bg-surface-muted">2</button>
+                        <button
+                            class="px-4 py-2 border border-custom rounded-lg text-midnight hover:bg-surface-muted">3</button>
+                        <button class="px-3 py-2 border border-custom rounded-lg text-midnight hover:bg-surface-muted">
+                            Next <i class="fas fa-chevron-right"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script type="module">
+
+        import { db, auth } from "./js/firebase.js";
+        import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.10.0/firebase-auth.js";
+
+        // ---------------- AUTH GUARD ----------------
+        onAuthStateChanged(auth, (user) => {
+            if (!user) {
+                window.location.href = 'index.html';
+            }
+        });
+
+        // Set print date
+        document.getElementById('printDate').textContent = new Date().toLocaleDateString('en-US', {
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric',
+            hour: '2-digit',
+            minute: '2-digit'
+        });
+
+        import {
+            collection,
+            getDocs,
+            doc,
+            updateDoc
+        } from "https://www.gstatic.com/firebasejs/12.10.0/firebase-firestore.js";
+
+        const tableBody = document.getElementById("usersTableBody");
+
+        /* ================================
+        LOAD USERS
+        ================================ */
+        async function loadUsers() {
+
+            tableBody.innerHTML = "";
+
+            const snapshot = await getDocs(collection(db, "users"));
+
+            snapshot.forEach(docSnap => {
+
+                const user = docSnap.data();
+                const userId = docSnap.id;
+
+                const joinedDate = user.createdAt
+                    ? new Date(user.createdAt.seconds * 1000).toLocaleDateString()
+                    : "N/A";
+
+                const isActive = user.active ?? true;
+
+                const row = document.createElement("tr");
+
+                row.className = "hover:bg-cloud";
+
+                row.innerHTML = `
+        <td class="px-6 py-4 text-sm font-medium text-midnight">${user.userId || userId}</td>
+
+        <td class="px-6 py-4 text-sm text-midnight">${user.name || "N/A"}</td>
+
+        <td class="px-6 py-4 text-sm text-secondary">${user.email || "N/A"}</td>
+
+        <td class="px-6 py-4 text-sm text-secondary">${joinedDate}</td>
+
+        <td class="px-6 py-4 text-center">
+
+        <label class="relative inline-flex items-center cursor-pointer">
+
+        <input
+        type="checkbox"
+        class="sr-only peer"
+        ${isActive ? "checked" : ""}
+        onchange="toggleStatus(this,'${userId}')"
+        >
+
+        <div class="w-11 h-6 bg-gray-300 rounded-full
+        peer peer-checked:after:translate-x-full
+        peer-checked:after:border-white
+        after:content-['']
+        after:absolute
+        after:top-[2px]
+        after:left-[2px]
+        after:bg-white
+        after:border
+        after:rounded-full
+        after:h-5
+        after:w-5
+        after:transition-all
+        peer-checked:bg-deep-plum"></div>
+
+        <span class="ml-2 text-xs font-medium ${isActive ? "text-success" : "text-secondary"} status-label">
+        ${isActive ? "Active" : "Inactive"}
+        </span>
+
+        </label>
+
+        </td>
+        `;
+
+                tableBody.appendChild(row);
+            });
+
+        }
+
+        window.toggleStatus = async function (checkbox, userDocId) {
+
+            const label = checkbox.closest('label').querySelector('.status-label');
+
+            const isActive = checkbox.checked;
+
+            if (isActive) {
+                label.textContent = "Active";
+                label.className = "ml-2 text-xs font-medium text-success status-label";
+            } else {
+                label.textContent = "Inactive";
+                label.className = "ml-2 text-xs font-medium text-secondary status-label";
+            }
+
+            const userRef = doc(db, "users", userDocId);
+
+            await updateDoc(userRef, {
+                active: isActive
+            });
+
+        }
+
+        /* ================================
+        SEARCH USERS
+        ================================ */
+        document.getElementById('searchUsers').addEventListener('input', function (e) {
+
+            const searchTerm = e.target.value.toLowerCase();
+
+            const rows = document.querySelectorAll('#usersTableBody tr');
+
+            rows.forEach(row => {
+
+                const name = row.querySelector('td:nth-child(2)').textContent.toLowerCase();
+
+                const email = row.querySelector('td:nth-child(3)').textContent.toLowerCase();
+
+                if (name.includes(searchTerm) || email.includes(searchTerm)) {
+
+                    row.style.display = '';
+
+                } else {
+
+                    row.style.display = 'none';
+
+                }
+
+            });
+
+        });
+
+        loadUsers();
+
+    </script>
+</body>
+
+</html>

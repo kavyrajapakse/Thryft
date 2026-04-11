@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Products - Admin Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @media print {
+
+            aside,
+            header,
+            button,
+            a,
+            .print-hidden,
+            .filter-section {
+                display: none !important;
+            }
+
+            main {
+                margin-left: 0 !important;
+            }
+
+            body {
+                background-color: white !important;
+            }
+
+            .p-8 {
+                padding: 20px !important;
+            }
+
+            .print-header {
+                display: block !important;
+                text-align: center;
+                margin-bottom: 30px;
+                padding-bottom: 20px;
+                border-bottom: 2px solid #333;
+            }
+
+            .print-header h1 {
+                margin: 0;
+                font-size: 24px;
+                font-weight: bold;
+                color: #000;
+            }
+
+            .print-header p {
+                margin: 5px 0 0 0;
+                font-size: 12px;
+                color: #666;
+            }
+
+            table {
+                width: 100%;
+                border-collapse: collapse;
+                margin-top: 20px;
+            }
+
+            thead {
+                background-color: #f5f5f5 !important;
+            }
+
+            th,
+            td {
+                border: 1px solid #999;
+                padding: 10px;
+                text-align: left;
+                font-size: 12px;
+            }
+
+            th {
+                background-color: #f5f5f5;
+                font-weight: bold;
+            }
+
+            tr {
+                page-break-inside: avoid;
+            }
+        }
+    </style>
+</head>
+
+<body class="bg-cloud">
+    <!-- Sidebar -->
+    <aside class="fixed left-0 top-0 h-screen w-64 bg-cloud border-r border-custom shadow-lg z-50">
+        <div class="p-6 border-b border-custom">
+            <h1 class="text-2xl font-bold text-midnight">Admin Panel</h1>
+            <p class="text-secondary text-sm mt-1">Management System</p>
+        </div>
+
+        <nav class="p-4">
+            <ul class="space-y-2">
+                <li>
+                    <a href="dashboard.html"
+                        class="flex items-center gap-3 px-4 py-3 rounded-lg text-secondary hover:bg-surface-muted hover:text-midnight">
+                        <i class="fas fa-home w-5"></i>
+                        <span>Dashboard</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="products.html"
+                        class="flex items-center gap-3 px-4 py-3 rounded-lg bg-deep-plum text-cloud hover:bg-opacity-90">
+                        <i class="fas fa-box w-5"></i>
+                        <span>Products</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="add-product.html"
+                        class="flex items-center gap-3 px-4 py-3 rounded-lg text-secondary hover:bg-surface-muted hover:text-midnight ml-4">
+                        <i class="fas fa-plus w-5"></i>
+                        <span>Add Product</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="update-product.html"
+                        class="flex items-center gap-3 px-4 py-3 rounded-lg text-secondary hover:bg-surface-muted hover:text-midnight ml-4">
+                        <i class="fas fa-edit w-5"></i>
+                        <span>Update Product</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="users.html"
+                        class="flex items-center gap-3 px-4 py-3 rounded-lg text-secondary hover:bg-surface-muted hover:text-midnight">
+                        <i class="fas fa-users w-5"></i>
+                        <span>Users</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="orders.html"
+                        class="flex items-center gap-3 px-4 py-3 rounded-lg text-secondary hover:bg-surface-muted hover:text-midnight">
+                        <i class="fas fa-shopping-cart w-5"></i>
+                        <span>Orders</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+
+        <div class="absolute bottom-0 w-full p-4 border-t border-custom bg-cloud">
+            <div class="flex items-center gap-3 px-4 py-3">
+                <div class="w-10 h-10 rounded-full bg-deep-plum flex items-center justify-center">
+                    <i class="fas fa-user text-cloud"></i>
+                </div>
+                <div>
+                    <p class="text-midnight text-sm font-medium">Admin User</p>
+                    <p class="text-secondary text-xs">admin@example.com</p>
+                </div>
+            </div>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="ml-64 min-h-screen">
+        <!-- Top Header -->
+        <header class="bg-surface shadow-sm sticky top-0 z-40">
+            <div class="flex items-center justify-between px-8 py-4">
+                <div>
+                    <h1 class="text-xl font-bold text-midnight">Products</h1>
+                    <p class="text-sm text-secondary">Manage all products</p>
+                </div>
+
+                <div class="flex items-center gap-4">
+                    <div class="relative">
+                        <input type="text" id="searchProducts" placeholder="Search by product ID or title..."
+                            class="px-4 py-2 pl-10 rounded-lg border border-custom bg-cloud focus:outline-none focus:ring-2 focus:ring-deep-plum w-72">
+                        <i class="fas fa-search absolute left-3 top-3 text-steel"></i>
+                    </div>
+
+                    <button onclick="window.print()" class="p-2 rounded-lg hover:bg-surface-muted text-midnight"
+                        title="Print">
+                        <i class="fas fa-print text-lg"></i>
+                    </button>
+
+                    <a href="add-product.html"
+                        class="px-4 py-2 bg-deep-plum text-cloud rounded-lg hover:bg-opacity-90 flex items-center gap-2">
+                        <i class="fas fa-plus"></i>
+                        <span>Add Product</span>
+                    </a>
+                </div>
+            </div>
+        </header>
+
+        <!-- Products Content -->
+        <div class="p-8">
+            <div class="bg-surface rounded-xl shadow-sm border border-custom">
+                <div class="p-6 border-b border-custom">
+                    <h3 class="text-xl font-bold text-midnight">All Products</h3>
+                </div>
+
+                <div class="print-header" style="display: none;">
+                    <h1>Product Report</h1>
+                    <p>Generated on <span id="printDate"></span></p>
+                </div>
+
+                <div class="overflow-x-auto">
+                    <table class="w-full">
+                        <thead class="bg-surface-muted">
+                            <tr>
+                                <th
+                                    class="px-6 py-3 text-left text-xs font-medium text-secondary uppercase tracking-wider">
+                                    Product ID</th>
+                                <th
+                                    class="px-6 py-3 text-left text-xs font-medium text-secondary uppercase tracking-wider">
+                                    Title</th>
+                                <th
+                                    class="px-6 py-3 text-left text-xs font-medium text-secondary uppercase tracking-wider">
+                                    Category</th>
+                                <th
+                                    class="px-6 py-3 text-left text-xs font-medium text-secondary uppercase tracking-wider">
+                                    Price</th>
+                                <th
+                                    class="px-6 py-3 text-left text-xs font-medium text-secondary uppercase tracking-wider">
+                                    Condition</th>
+                                <th
+                                    class="px-6 py-3 text-center text-xs font-medium text-secondary uppercase tracking-wider">
+                                    Status</th>
+                            </tr>
+                        </thead>
+                        <tbody id="productsTableBody" class="divide-y divide-custom">
+                            <!-- Populated by JS -->
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="p-6 border-t border-custom">
+                    <p class="text-sm text-secondary" id="productCount">Showing all products</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Product Detail Modal -->
+    <div id="productModal" class="fixed inset-0 bg-black bg-opacity-40 z-50 hidden flex items-center justify-center">
+        <div class="bg-surface rounded-xl shadow-xl w-full max-w-2xl mx-4 p-6 max-h-[90vh] overflow-y-auto">
+            <div class="flex items-center justify-between mb-6">
+                <h2 class="text-lg font-bold text-midnight">Product Details</h2>
+                <button onclick="closeModal()" class="text-steel hover:text-midnight">
+                    <i class="fas fa-times text-xl"></i>
+                </button>
+            </div>
+
+            <div id="modalContent" class="space-y-4 text-sm text-midnight">
+                <!-- Filled by JS -->
+            </div>
+
+            <div class="mt-6 flex gap-3 justify-end">
+                <button onclick="closeModal()"
+                    class="px-4 py-2 rounded-lg border border-custom text-midnight hover:bg-surface-muted">Close</button>
+                <a id="editBtn" href="#"
+                    class="px-4 py-2 bg-deep-plum text-cloud rounded-lg hover:bg-opacity-90">Edit</a>
+            </div>
+        </div>
+    </div>
+
+    <script type="module" src="js/firebase.js"></script>
+
+    <script type="module">
+        import { db, auth } from "./js/firebase.js";
+        import { collection, getDocs } from "https://www.gstatic.com/firebasejs/12.10.0/firebase-firestore.js";
+        import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.10.0/firebase-auth.js";
+
+        // ---------------- AUTH GUARD ----------------
+        onAuthStateChanged(auth, (user) => {
+            if (!user) {
+                window.location.href = 'index.html';
+            }
+        });
+
+        let products = [];
+        let categories = {};
+
+        async function loadCategories() {
+
+            const snapshot = await getDocs(collection(db, "categories"));
+
+            snapshot.forEach(doc => {
+
+                const data = doc.data();
+
+                // map cat2 -> Tops & Blouses
+                categories[data.categoryId] = data.name;
+
+            });
+
+        }
+
+        async function loadProducts() {
+
+            const tbody = document.getElementById("productsTableBody");
+            tbody.innerHTML = "<tr><td class='px-6 py-4'>Loading...</td></tr>";
+
+            try {
+
+                await loadCategories(); // LOAD CATEGORY FIRST
+
+                const querySnapshot = await getDocs(collection(db, "products"));
+
+                products = [];
+
+                querySnapshot.forEach((doc) => {
+
+                    const data = doc.data();
+
+                    products.push({
+                        docId: doc.id,
+                        productId: data.productId,
+                        title: data.title,
+                        categoryId: data.categoryId,
+                        categoryName: categories[data.categoryId] || "Unknown",
+                        price: data.price,
+                        condition: data.condition,
+                        status: data.status
+                    });
+
+                });
+
+                renderProducts(products);
+
+            } catch (error) {
+                console.error(error);
+            }
+        }
+
+        function renderProducts(list) {
+
+            const tbody = document.getElementById('productsTableBody');
+            tbody.innerHTML = '';
+
+            list.forEach(product => {
+
+                const row = document.createElement('tr');
+                row.className = 'hover:bg-cloud';
+
+                row.innerHTML = `
+            <td class="px-6 py-4 text-sm font-medium text-midnight whitespace-nowrap">${product.productId}</td>
+            <td class="px-6 py-4 text-sm text-midnight">${product.title}</td>
+            <td class="px-6 py-4 text-sm text-secondary whitespace-nowrap">${product.categoryName}</td>
+            <td class="px-6 py-4 text-sm text-midnight whitespace-nowrap">Rs. ${product.price}</td>
+            <td class="px-6 py-4 text-sm text-secondary whitespace-nowrap">${product.condition}</td>
+            <td class="px-6 py-4 text-center whitespace-nowrap text-sm text-midnight">
+                ${product.status ? 'Available' : 'Sold'}
+            </td>
+        `;
+
+                row.onclick = () => viewProduct(product.productId);
+
+                tbody.appendChild(row);
+
+            });
+
+            document.getElementById('productCount').textContent =
+                `Showing ${list.length} products`;
+
+        }
+
+        function viewProduct(productId) {
+
+            const product = products.find(p => p.productId === productId);
+            if (!product) return;
+
+            document.getElementById('modalContent').innerHTML = `
+        <div class="grid grid-cols-2 gap-6">
+
+            <div>
+                <p class="text-secondary text-xs mb-1">Product ID</p>
+                <p class="font-medium">${product.productId}</p>
+            </div>
+
+            <div>
+                <p class="text-secondary text-xs mb-1">Title</p>
+                <p class="font-medium">${product.title}</p>
+            </div>
+
+            <div>
+                <p class="text-secondary text-xs mb-1">Price</p>
+                <p class="font-medium">Rs. ${product.price}</p>
+            </div>
+
+            <div>
+                <p class="text-secondary text-xs mb-1">Category</p>
+                <p class="font-medium">${product.categoryId}</p>
+            </div>
+
+            <div>
+                <p class="text-secondary text-xs mb-1">Condition</p>
+                <p class="font-medium">${product.condition}</p>
+            </div>
+
+            <div>
+                <p class="text-secondary text-xs mb-1">Status</p>
+                <p class="font-medium">${product.status ? 'Available' : 'Sold'}</p>
+            </div>
+
+        </div>
+    `;
+
+            document.getElementById('editBtn').href =
+                `update-product.html?id=${product.productId}`;
+
+            document.getElementById('productModal').classList.remove('hidden');
+
+        }
+
+        function closeModal() {
+            document.getElementById('productModal').classList.add('hidden');
+        }
+
+        document.getElementById('searchProducts').addEventListener('input', applyFilters);
+
+        function applyFilters() {
+
+            const search = document.getElementById('searchProducts').value.toLowerCase();
+
+            const filtered = products.filter(p =>
+                p.productId.toLowerCase().includes(search) ||
+                p.title.toLowerCase().includes(search)
+            );
+
+            renderProducts(filtered);
+
+        }
+
+        document.getElementById('productModal').addEventListener('click', function (e) {
+            if (e.target === this) closeModal();
+        });
+
+        loadProducts();
+    </script>
+</body>
+
+</html>

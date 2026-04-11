@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Core Brand Colors (Dark Mode) -->
+    <color name="midnight">#E5E7EB</color>
+    <color name="deep_plum">#9F4C6C</color>
+    <color name="steel">#9CA3AF</color>
+    <color name="cloud">#020617</color>
+
+    <!-- Surface Colors (Dark Mode) -->
+    <color name="surface">#020617</color>
+    <color name="surface_muted">#020617</color>
+
+    <!-- Accent Colors (Dark Mode) -->
+    <color name="sage">#6FAF9A</color>
+    <color name="amber">#FBBF24</color>
+
+    <!-- Status Colors (Dark Mode) -->
+    <color name="success">#22C55E</color>
+    <color name="error">#F87171</color>
+    <color name="info">#60A5FA</color>
+
+    <!-- Text Colors (Dark Mode) -->
+    <color name="text_primary">#F8FAFC</color>
+    <color name="text_secondary">#CBD5E1</color>
+    <color name="text_disabled">#64748B</color>
+
+    <!-- Borders & Dividers (Dark Mode) -->
+    <color name="border">#1E293B</color>
+
+    <!-- Common Colors -->
+    <color name="transparent">#00000000</color>
+    <color name="white">#FFFFFF</color>
+    <color name="black">#000000</color>
+</resources>

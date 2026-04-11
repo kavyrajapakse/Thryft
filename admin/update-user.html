@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update User - Admin Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="bg-cloud">
+    <!-- Sidebar -->
+    <aside class="fixed left-0 top-0 h-screen w-64 bg-cloud border-r border-custom shadow-lg z-50">
+        <div class="p-6 border-b border-custom">
+            <h1 class="text-2xl font-bold text-midnight">Admin Panel</h1>
+            <p class="text-secondary text-sm mt-1">Management System</p>
+        </div>
+
+        <nav class="p-4">
+            <ul class="space-y-2">
+                <li>
+                    <a href="dashboard.html" class="flex items-center gap-3 px-4 py-3 rounded-lg text-secondary hover:bg-surface-muted hover:text-midnight">
+                        <i class="fas fa-home w-5"></i>
+                        <span>Dashboard</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="products.html" class="flex items-center gap-3 px-4 py-3 rounded-lg text-secondary hover:bg-surface-muted hover:text-midnight">
+                        <i class="fas fa-box w-5"></i>
+                        <span>Products</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="add-product.html" class="flex items-center gap-3 px-4 py-3 rounded-lg text-secondary hover:bg-surface-muted hover:text-midnight ml-4">
+                        <i class="fas fa-plus w-5"></i>
+                        <span>Add Product</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="update-product.html" class="flex items-center gap-3 px-4 py-3 rounded-lg text-secondary hover:bg-surface-muted hover:text-midnight ml-4">
+                        <i class="fas fa-edit w-5"></i>
+                        <span>Update Product</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="users.html" class="flex items-center gap-3 px-4 py-3 rounded-lg text-secondary hover:bg-surface-muted hover:text-midnight">
+                        <i class="fas fa-users w-5"></i>
+                        <span>Users</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="add-user.html" class="flex items-center gap-3 px-4 py-3 rounded-lg text-secondary hover:bg-surface-muted hover:text-midnight ml-4">
+                        <i class="fas fa-user-plus w-5"></i>
+                        <span>Add User</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="update-user.html" class="flex items-center gap-3 px-4 py-3 rounded-lg bg-deep-plum text-cloud hover:bg-opacity-90 ml-4">
+                        <i class="fas fa-user-edit w-5"></i>
+                        <span>Update User</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="flex items-center gap-3 px-4 py-3 rounded-lg text-secondary hover:bg-surface-muted hover:text-midnight">
+                        <i class="fas fa-shopping-cart w-5"></i>
+                        <span>Orders</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="flex items-center gap-3 px-4 py-3 rounded-lg text-secondary hover:bg-surface-muted hover:text-midnight">
+                        <i class="fas fa-th-large w-5"></i>
+                        <span>Categories</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="flex items-center gap-3 px-4 py-3 rounded-lg text-secondary hover:bg-surface-muted hover:text-midnight">
+                        <i class="fas fa-chart-bar w-5"></i>
+                        <span>Analytics</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="flex items-center gap-3 px-4 py-3 rounded-lg text-secondary hover:bg-surface-muted hover:text-midnight">
+                        <i class="fas fa-cog w-5"></i>
+                        <span>Settings</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+
+        <div class="absolute bottom-0 w-full p-4 border-t border-custom bg-cloud">
+            <div class="flex items-center gap-3 px-4 py-3">
+                <div class="w-10 h-10 rounded-full bg-deep-plum flex items-center justify-center">
+                    <i class="fas fa-user text-cloud"></i>
+                </div>
+                <div>
+                    <p class="text-midnight text-sm font-medium">Admin User</p>
+                    <p class="text-secondary text-xs">admin@example.com</p>
+                </div>
+            </div>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="ml-64 min-h-screen">
+        <!-- Top Header -->
+        <header class="bg-surface shadow-sm sticky top-0 z-40">
+            <div class="flex items-center justify-between px-8 py-4">
+                <div class="flex items-center gap-4">
+                    <a href="users.html" class="text-steel hover:text-midnight">
+                        <i class="fas fa-arrow-left text-xl"></i>
+                    </a>
+                    <div>
+                        <h1 class="text-xl font-bold text-midnight">Update User</h1>
+                        <p class="text-sm text-secondary">Edit user details and information</p>
+                    </div>
+                </div>
+
+                <div class="flex items-center gap-4">
+                    <button class="relative p-2 rounded-lg hover:bg-surface-muted">
+                        <i class="fas fa-bell text-midnight text-xl"></i>
+                        <span class="absolute -top-1 -right-1 w-5 h-5 bg-error text-white text-xs rounded-full flex items-center justify-center">3</span>
+                    </button>
+
+                    <div class="flex items-center gap-3 pl-4 border-l border-custom">
+                        <div class="text-right">
+                            <p class="text-midnight text-sm font-medium">Admin User</p>
+                            <p class="text-secondary text-xs">Administrator</p>
+                        </div>
+                        <div class="w-10 h-10 rounded-full bg-deep-plum flex items-center justify-center">
+                            <i class="fas fa-user text-cloud"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Form Content -->
+        <div class="p-8">
+            <!-- Search User Section -->
+            <div class="max-w-3xl mx-auto mb-6">
+                <div class="bg-surface rounded-xl shadow-sm border border-custom p-6">
+                    <h2 class="text-lg font-bold text-midnight mb-4 flex items-center gap-2">
+                        <i class="fas fa-search text-deep-plum"></i>
+                        Search User
+                    </h2>
+                    <div class="flex gap-4">
+                        <div class="flex-1">
+                            <label class="block text-sm font-medium text-midnight mb-2">
+                                Enter User ID (UID)
+                            </label>
+                            <input
+                                type="text"
+                                id="searchUserId"
+                                placeholder="e.g., USER-001"
+                                onkeypress="if(event.key === 'Enter') searchUser()"
+                                class="w-full px-4 py-2 rounded-lg border border-custom bg-cloud focus:outline-none focus:ring-2 focus:ring-deep-plum focus:border-transparent"
+                            >
+                        </div>
+                        <div class="flex items-end">
+                            <button
+                                type="button"
+                                onclick="searchUser()"
+                                class="px-6 py-2 bg-deep-plum text-cloud rounded-lg hover:bg-opacity-90 font-medium flex items-center gap-2"
+                            >
+                                <i class="fas fa-search"></i>
+                                Search
+                            </button>
+                        </div>
+                    </div>
+                    <p class="text-xs text-secondary mt-2"><i class="fas fa-info-circle"></i> Enter the User ID to load user details for editing</p>
+                </div>
+            </div>
+
+            <!-- No User Loaded Message -->
+            <div id="noUserMessage" class="max-w-3xl mx-auto">
+                <div class="bg-surface-muted rounded-xl border border-custom p-12 text-center">
+                    <i class="fas fa-search text-steel text-6xl mb-4"></i>
+                    <h3 class="text-xl font-bold text-midnight mb-2">No User Loaded</h3>
+                    <p class="text-secondary">Search for a user using their User ID to view and edit details</p>
+                    <p class="text-sm text-steel mt-3">Try: <span class="font-mono bg-cloud px-2 py-1 rounded">USER-001</span>, <span class="font-mono bg-cloud px-2 py-1 rounded">USER-002</span>, or <span class="font-mono bg-cloud px-2 py-1 rounded">USER-003</span></p>
+                </div>
+            </div>
+
+            <!-- User Form (Initially Hidden) -->
+            <form id="userForm" class="max-w-3xl mx-auto hidden">
+                <!-- User ID Info -->
+                <div class="bg-info bg-opacity-10 border border-info rounded-lg p-4 mb-6">
+                    <div class="flex items-center gap-3">
+                        <i class="fas fa-info-circle text-info text-xl"></i>
+                        <div>
+                            <p class="text-midnight font-medium">User ID: <span class="font-bold" id="displayUserId">USER-001</span></p>
+                            <p class="text-sm text-secondary">Member since: January 15, 2026</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- User Information Card -->
+                <div class="bg-surface rounded-xl shadow-sm border border-custom p-6 mb-6">
+                    <h2 class="text-lg font-bold text-midnight mb-6 flex items-center gap-2">
+                        <i class="fas fa-user text-deep-plum"></i>
+                        User Information
+                    </h2>
+
+                    <div class="grid grid-cols-1 gap-6">
+                        <!-- User ID (Read-only) -->
+                        <div>
+                            <label class="block text-sm font-medium text-midnight mb-2">
+                                User ID (UID) <span class="text-error">*</span>
+                            </label>
+                            <input
+                                type="text"
+                                name="uid"
+                                value="USER-001"
+                                readonly
+                                class="w-full px-4 py-2 rounded-lg border border-custom bg-surface-muted cursor-not-allowed focus:outline-none"
+                            >
+                        </div>
+
+                        <!-- Name -->
+                        <div>
+                            <label class="block text-sm font-medium text-midnight mb-2">
+                                Full Name <span class="text-error">*</span>
+                            </label>
+                            <input
+                                type="text"
+                                name="name"
+                                value="John Doe"
+                                placeholder="Enter full name"
+                                required
+                                class="w-full px-4 py-2 rounded-lg border border-custom bg-cloud focus:outline-none focus:ring-2 focus:ring-deep-plum focus:border-transparent"
+                            >
+                        </div>
+
+                        <!-- Email -->
+                        <div>
+                            <label class="block text-sm font-medium text-midnight mb-2">
+                                Email Address <span class="text-error">*</span>
+                            </label>
+                            <input
+                                type="email"
+                                name="email"
+                                value="john.doe@example.com"
+                                placeholder="user@example.com"
+                                required
+                                class="w-full px-4 py-2 rounded-lg border border-custom bg-cloud focus:outline-none focus:ring-2 focus:ring-deep-plum focus:border-transparent"
+                            >
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Profile Image Card -->
+                <div class="bg-surface rounded-xl shadow-sm border border-custom p-6 mb-6">
+                    <h2 class="text-lg font-bold text-midnight mb-6 flex items-center gap-2">
+                        <i class="fas fa-image text-deep-plum"></i>
+                        Profile Image
+                    </h2>
+
+                    <!-- Current Profile Image -->
+                    <div class="mb-6">
+                        <p class="text-sm font-medium text-midnight mb-3">Current Profile Image</p>
+                        <div class="flex items-center gap-4">
+                            <div id="currentProfileImage" class="w-24 h-24 rounded-full bg-deep-plum flex items-center justify-center">
+                                <i class="fas fa-user text-cloud text-3xl"></i>
+                            </div>
+                            <button type="button" onclick="removeCurrentImage()" class="px-3 py-2 bg-error bg-opacity-10 text-error rounded-lg hover:bg-opacity-20 text-sm">
+                                <i class="fas fa-times"></i> Remove Current Image
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Image URL -->
+                    <div class="mb-4">
+                        <label class="block text-sm font-medium text-midnight mb-2">
+                            Profile Image URL
+                        </label>
+                        <input
+                            type="url"
+                            id="profileImgUrl"
+                            name="profileImgUrl"
+                            placeholder="https://example.com/profile.jpg"
+                            class="w-full px-4 py-2 rounded-lg border border-custom bg-cloud focus:outline-none focus:ring-2 focus:ring-deep-plum focus:border-transparent"
+                        >
+                    </div>
+
+                    <!-- Image Upload -->
+                    <div>
+                        <label class="block text-sm font-medium text-midnight mb-2">
+                            Or Upload New Image
+                        </label>
+                        <div class="border-2 border-dashed border-custom rounded-lg p-8 text-center hover:border-deep-plum hover:bg-cloud">
+                            <i class="fas fa-cloud-upload-alt text-4xl text-steel mb-3"></i>
+                            <p class="text-secondary mb-2">Drag and drop profile image here or</p>
+                            <label class="inline-block px-4 py-2 bg-deep-plum text-cloud rounded-lg cursor-pointer hover:bg-opacity-90">
+                                <input type="file" id="profileImageFile" accept="image/*" class="hidden">
+                                Browse Files
+                            </label>
+                            <p class="text-xs text-disabled mt-2">Supported formats: JPG, PNG, GIF (Max 2MB)</p>
+                        </div>
+                    </div>
+
+                    <!-- New Image Preview -->
+                    <div id="imagePreview" class="mt-4 hidden">
+                        <p class="text-sm font-medium text-midnight mb-2">New Image Preview</p>
+                        <div class="flex items-center gap-4">
+                            <img id="previewImg" src="" alt="Preview" class="w-24 h-24 object-cover rounded-full border-2 border-custom">
+                            <button type="button" onclick="removeNewImage()" class="px-3 py-2 bg-error bg-opacity-10 text-error rounded-lg hover:bg-opacity-20 text-sm">
+                                <i class="fas fa-times"></i> Remove
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="flex items-center justify-between">
+                    <button
+                        type="button"
+                        onclick="confirmDelete()"
+                        class="px-6 py-3 bg-error text-white rounded-lg hover:bg-opacity-90 font-medium flex items-center gap-2"
+                    >
+                        <i class="fas fa-trash"></i>
+                        Delete User
+                    </button>
+
+                    <div class="flex items-center gap-4">
+                        <a
+                            href="users.html"
+                            class="px-6 py-3 border border-custom rounded-lg text-midnight hover:bg-surface-muted font-medium"
+                        >
+                            Cancel
+                        </a>
+                        <button
+                            type="submit"
+                            class="px-6 py-3 bg-deep-plum text-cloud rounded-lg hover:bg-opacity-90 font-medium flex items-center gap-2"
+                        >
+                            <i class="fas fa-save"></i>
+                            Update User
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </main>
+
+    <script>
+        // Sample user database (replace with actual API call)
+        const sampleUsers = {
+            'USER-001': {
+                uid: 'USER-001',
+                name: 'John Doe',
+                email: 'john.doe@example.com',
+                profileImgUrl: null,
+                joinedDate: 'January 15, 2026'
+            },
+            'USER-002': {
+                uid: 'USER-002',
+                name: 'Jane Smith',
+                email: 'jane.smith@example.com',
+                profileImgUrl: 'https://example.com/jane.jpg',
+                joinedDate: 'January 20, 2026'
+            },
+            'USER-003': {
+                uid: 'USER-003',
+                name: 'Mike Johnson',
+                email: 'mike.johnson@example.com',
+                profileImgUrl: null,
+                joinedDate: 'February 5, 2026'
+            }
+        };
+
+        // Search user function
+        function searchUser() {
+            const searchInput = document.getElementById('searchUserId');
+            const userId = searchInput.value.trim().toUpperCase();
+
+            if (!userId) {
+                alert('Please enter a User ID');
+                return;
+            }
+
+            // Simulate API call - Replace with actual API call
+            const user = sampleUsers[userId];
+
+            if (!user) {
+                alert('User not found! Try USER-001, USER-002, or USER-003');
+                return;
+            }
+
+            // Show the form
+            document.getElementById('userForm').classList.remove('hidden');
+            document.getElementById('noUserMessage').classList.add('hidden');
+
+            // Populate form fields
+            populateForm(user);
+
+            // Scroll to form
+            document.getElementById('userForm').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Populate form with user data
+        function populateForm(user) {
+            // Update display user ID
+            document.getElementById('displayUserId').textContent = user.uid;
+
+            // Populate form fields
+            document.querySelector('input[name="uid"]').value = user.uid;
+            document.querySelector('input[name="name"]').value = user.name;
+            document.querySelector('input[name="email"]').value = user.email;
+            document.getElementById('profileImgUrl').value = user.profileImgUrl || '';
+
+            // Update current profile image display
+            const currentProfileImage = document.getElementById('currentProfileImage');
+            if (user.profileImgUrl) {
+                currentProfileImage.innerHTML = `<img src="${user.profileImgUrl}" alt="Profile" class="w-24 h-24 rounded-full object-cover">`;
+            } else {
+                currentProfileImage.innerHTML = '<i class="fas fa-user text-cloud text-3xl"></i>';
+            }
+
+            // Clear new image preview
+            document.getElementById('imagePreview').classList.add('hidden');
+            document.getElementById('profileImageFile').value = '';
+        }
+
+        // Image preview functionality
+        const fileInput = document.getElementById('profileImageFile');
+        const urlInput = document.getElementById('profileImgUrl');
+        const imagePreview = document.getElementById('imagePreview');
+        const previewImg = document.getElementById('previewImg');
+
+        // File upload handler
+        fileInput.addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    previewImg.src = e.target.result;
+                    imagePreview.classList.remove('hidden');
+                    urlInput.value = e.target.result;
+                }
+                reader.readAsDataURL(file);
+            }
+        });
+
+        // URL input handler
+        urlInput.addEventListener('input', function(e) {
+            if (e.target.value) {
+                previewImg.src = e.target.value;
+                imagePreview.classList.remove('hidden');
+            } else {
+                imagePreview.classList.add('hidden');
+            }
+        });
+
+        // Remove current image
+        function removeCurrentImage() {
+            if (confirm('Are you sure you want to remove the current profile image?')) {
+                const currentProfileImage = document.getElementById('currentProfileImage');
+                currentProfileImage.innerHTML = '<i class="fas fa-user text-cloud text-3xl"></i>';
+                urlInput.value = '';
+            }
+        }
+
+        // Remove new image
+        function removeNewImage() {
+            fileInput.value = '';
+            urlInput.value = '';
+            imagePreview.classList.add('hidden');
+        }
+
+        // Form validation and submission
+        document.getElementById('userForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            // Collect form data
+            const formData = new FormData(this);
+
+            // Build user object matching the User class
+            const user = {
+                uid: formData.get('uid'),
+                name: formData.get('name'),
+                email: formData.get('email'),
+                profileImgUrl: formData.get('profileImgUrl') || null
+            };
+
+            console.log('Updated User Data:', user);
+
+            // Show success message (replace with actual API call)
+            alert('User updated successfully!');
+
+            // Redirect to users page
+            // window.location.href = 'users.html';
+        });
+
+        // Delete confirmation
+        function confirmDelete() {
+            const userId = document.querySelector('input[name="uid"]').value;
+
+            if (!userId) {
+                alert('No user loaded!');
+                return;
+            }
+
+            if (confirm(`Are you sure you want to delete user ${userId}? This action cannot be undone.`)) {
+                console.log(`Deleting user ${userId}`);
+
+                // Here you would make an API call to delete the user
+                // Example: await fetch(`/api/users/${userId}`, { method: 'DELETE' });
+
+                alert('User deleted successfully!');
+
+                // Redirect after deletion
+                window.location.href = 'users.html';
+            }
+        }
+    </script>
+</body>
+</html>

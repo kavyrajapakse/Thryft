@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginHorizontal="@dimen/margin_md"
+    android:layout_marginVertical="@dimen/margin_xs"
+    app:cardBackgroundColor="@color/surface"
+    app:cardCornerRadius="@dimen/corner_radius_lg"
+    app:cardElevation="1dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/padding_md">
+
+        <!-- Notification Icon -->
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cv_notification_icon"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            app:cardBackgroundColor="@color/cloud"
+            app:cardCornerRadius="24dp"
+            app:cardElevation="0dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/iv_notification_icon"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_gravity="center"
+                android:contentDescription="@string/notification_icon"
+                android:src="@drawable/ic_notification_order"
+                app:tint="@color/deep_plum" />
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- Notification Content -->
+        <LinearLayout
+            android:id="@+id/ll_notification_content"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_md"
+            android:layout_marginEnd="@dimen/margin_sm"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="@id/cv_notification_icon"
+            app:layout_constraintEnd_toStartOf="@id/iv_menu"
+            app:layout_constraintStart_toEndOf="@id/cv_notification_icon"
+            app:layout_constraintTop_toTopOf="@id/cv_notification_icon">
+
+            <!-- Title Row with Unread Indicator -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tv_notification_title"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:textColor="@color/text_primary"
+                    android:textSize="@dimen/text_size_md"
+                    android:textStyle="bold"
+                    tools:text="Order Confirmed" />
+
+                <!-- Unread Indicator Dot -->
+                <View
+                    android:id="@+id/view_unread_dot"
+                    android:layout_width="8dp"
+                    android:layout_height="8dp"
+                    android:layout_marginStart="@dimen/margin_xs"
+                    android:background="@drawable/bg_unread_dot"
+                    android:visibility="visible" />
+
+            </LinearLayout>
+
+            <!-- Message -->
+            <TextView
+                android:id="@+id/tv_notification_message"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:ellipsize="end"
+                android:maxLines="2"
+                android:textColor="@color/text_secondary"
+                android:textSize="@dimen/text_size_sm"
+                tools:text="Your order #12345 has been confirmed and is being processed." />
+
+        </LinearLayout>
+
+        <!-- Menu Button -->
+        <ImageView
+            android:id="@+id/iv_menu"
+            android:layout_width="@dimen/icon_size_md"
+            android:layout_height="@dimen/icon_size_md"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:clickable="true"
+            android:contentDescription="@string/more_options"
+            android:focusable="true"
+            android:padding="4dp"
+            android:src="@drawable/ic_more_vert"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:tint="@color/text_secondary" />
+
+        <!-- Time -->
+        <TextView
+            android:id="@+id/tv_notification_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_sm"
+            android:textColor="@color/text_disabled"
+            android:textSize="@dimen/text_size_xs"
+            app:layout_constraintStart_toStartOf="@id/ll_notification_content"
+            app:layout_constraintTop_toBottomOf="@id/ll_notification_content"
+            tools:text="2 hours ago" />
+
+        <!-- Action Button (Optional) -->
+<!--        <com.google.android.material.button.MaterialButton-->
+<!--            android:id="@+id/btn_notification_action"-->
+<!--            style="@style/Widget.Material3.Button.OutlinedButton"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginTop="@dimen/margin_sm"-->
+<!--            android:text="@string/view_order"-->
+<!--            android:textAllCaps="false"-->
+<!--            android:textColor="@color/deep_plum"-->
+<!--            android:textSize="@dimen/text_size_sm"-->
+<!--            android:visibility="visible"-->
+<!--            app:cornerRadius="@dimen/corner_radius_md"-->
+<!--            app:layout_constraintStart_toStartOf="@id/ll_notification_content"-->
+<!--            app:layout_constraintTop_toBottomOf="@id/tv_notification_time"-->
+<!--            app:strokeColor="@color/deep_plum"-->
+<!--            app:strokeWidth="1dp"-->
+<!--            tools:visibility="visible" />-->
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</com.google.android.material.card.MaterialCardView>

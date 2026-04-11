@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/cloud">
+
+    <!-- Toolbar -->
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/surface"
+        android:elevation="4dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:navigationIcon="@drawable/arrow_back_24px"
+        app:titleTextColor="@color/text_primary">
+
+        <!-- Category Count Badge -->
+        <!--        <TextView-->
+        <!--            android:id="@+id/tv_product_count"-->
+        <!--            android:layout_width="wrap_content"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:layout_gravity="end"-->
+        <!--            android:layout_marginEnd="@dimen/margin_md"-->
+        <!--            android:background="@drawable/bg_count_badge"-->
+        <!--            android:paddingHorizontal="@dimen/padding_sm"-->
+        <!--            android:paddingVertical="4dp"-->
+        <!--            android:textColor="@color/white"-->
+        <!--            android:textSize="@dimen/text_size_xs"-->
+        <!--            android:textStyle="bold"-->
+        <!--            tools:text="24 items" />-->
+
+    </com.google.android.material.appbar.MaterialToolbar>
+
+    <!-- Filter/Sort Section -->
+    <LinearLayout
+        android:id="@+id/ll_filter_section"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/surface"
+        android:elevation="2dp"
+        android:orientation="horizontal"
+        android:padding="@dimen/padding_md"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/toolbar">
+
+        <!-- Filter Button -->
+        <!--        <com.google.android.material.button.MaterialButton-->
+        <!--            android:id="@+id/btn_filter"-->
+        <!--            style="@style/Widget.Material3.Button.OutlinedButton"-->
+        <!--            android:layout_width="0dp"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:layout_marginEnd="@dimen/margin_sm"-->
+        <!--            android:layout_weight="1"-->
+        <!--            android:text="@string/filter"-->
+        <!--            android:textAllCaps="false"-->
+        <!--            android:textColor="@color/text_primary"-->
+        <!--            android:textSize="@dimen/text_size_sm"-->
+        <!--            app:cornerRadius="@dimen/corner_radius_md"-->
+        <!--            app:icon="@drawable/ic_filter"-->
+        <!--            app:iconGravity="textStart"-->
+        <!--            app:iconSize="18dp"-->
+        <!--            app:iconTint="@color/text_primary"-->
+        <!--            app:strokeColor="@color/border"-->
+        <!--            app:strokeWidth="1dp" />-->
+
+        <!-- Sort Button -->
+        <!--        <com.google.android.material.button.MaterialButton-->
+        <!--            android:id="@+id/btn_sort"-->
+        <!--            style="@style/Widget.Material3.Button.OutlinedButton"-->
+        <!--            android:layout_width="0dp"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:layout_marginStart="@dimen/margin_sm"-->
+        <!--            android:layout_weight="1"-->
+        <!--            android:text="@string/sort"-->
+        <!--            android:textAllCaps="false"-->
+        <!--            android:textColor="@color/text_primary"-->
+        <!--            android:textSize="@dimen/text_size_sm"-->
+        <!--            app:cornerRadius="@dimen/corner_radius_md"-->
+        <!--            app:icon="@drawable/ic_sort"-->
+        <!--            app:iconGravity="textStart"-->
+        <!--            app:iconSize="18dp"-->
+        <!--            app:iconTint="@color/text_primary"-->
+        <!--            app:strokeColor="@color/border"-->
+        <!--            app:strokeWidth="1dp" />-->
+
+    </LinearLayout>
+
+    <!-- Products Grid -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_products"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:clipToPadding="false"
+        android:padding="@dimen/padding_sm"
+        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/ll_filter_section"
+        app:spanCount="2"
+        tools:itemCount="10"
+        tools:listitem="@layout/category_product_item" />
+
+    <!-- Empty State -->
+    <LinearLayout
+        android:id="@+id/ll_empty_state"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:alpha="0.3"
+            android:contentDescription="@string/no_products"
+            app:tint="@color/text_disabled" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_md"
+            android:text="@string/no_products_found"
+            android:textColor="@color/text_secondary"
+            android:textSize="@dimen/text_size_lg" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_xs"
+            android:text="@string/try_different_category"
+            android:textColor="@color/text_disabled"
+            android:textSize="@dimen/text_size_sm" />
+
+    </LinearLayout>
+
+    <!-- Loading Progress -->
+    <ProgressBar
+        android:id="@+id/progress_loading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:indeterminateTint="@color/deep_plum"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

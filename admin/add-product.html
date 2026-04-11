@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Product - Admin Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body class="bg-cloud">
+    <!-- Sidebar -->
+    <aside class="fixed left-0 top-0 h-screen w-64 bg-cloud border-r border-custom shadow-lg z-50">
+        <div class="p-6 border-b border-custom">
+            <h1 class="text-2xl font-bold text-midnight">Admin Panel</h1>
+            <p class="text-secondary text-sm mt-1">Management System</p>
+        </div>
+
+        <nav class="p-4">
+            <ul class="space-y-2">
+                <li>
+                    <a href="dashboard.html"
+                        class="flex items-center gap-3 px-4 py-3 rounded-lg text-secondary hover:bg-surface-muted hover:text-midnight">
+                        <i class="fas fa-home w-5"></i>
+                        <span>Dashboard</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="products.html"
+                        class="flex items-center gap-3 px-4 py-3 rounded-lg text-secondary hover:bg-surface-muted hover:text-midnight">
+                        <i class="fas fa-box w-5"></i>
+                        <span>Products</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="add-product.html"
+                        class="flex items-center gap-3 px-4 py-3 rounded-lg bg-deep-plum text-cloud hover:bg-opacity-90 ml-4">
+                        <i class="fas fa-plus w-5"></i>
+                        <span>Add Product</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="update-product.html"
+                        class="flex items-center gap-3 px-4 py-3 rounded-lg text-secondary hover:bg-surface-muted hover:text-midnight ml-4">
+                        <i class="fas fa-edit w-5"></i>
+                        <span>Update Product</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="users.html"
+                        class="flex items-center gap-3 px-4 py-3 rounded-lg text-secondary hover:bg-surface-muted hover:text-midnight">
+                        <i class="fas fa-users w-5"></i>
+                        <span>Users</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="orders.html"
+                        class="flex items-center gap-3 px-4 py-3 rounded-lg text-secondary hover:bg-surface-muted hover:text-midnight">
+                        <i class="fas fa-shopping-cart w-5"></i>
+                        <span>Orders</span>
+                    </a>
+                </li>
+
+            </ul>
+        </nav>
+
+        <div class="absolute bottom-0 w-full p-4 border-t border-custom bg-cloud">
+            <div class="flex items-center gap-3 px-4 py-3">
+                <div class="w-10 h-10 rounded-full bg-deep-plum flex items-center justify-center">
+                    <i class="fas fa-user text-cloud"></i>
+                </div>
+                <div>
+                    <p class="text-midnight text-sm font-medium">Admin User</p>
+                    <p class="text-secondary text-xs">admin@example.com</p>
+                </div>
+            </div>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="ml-64 min-h-screen">
+        <!-- Toast Notification -->
+        <div id="toast" class="fixed top-4 right-4 z-50 hidden">
+            <div class="bg-white border-l-4 rounded-lg shadow-lg p-4 min-w-[300px]" id="toastContent">
+                <div class="flex items-center gap-3">
+                    <i class="text-2xl" id="toastIcon"></i>
+                    <div class="flex-1">
+                        <p class="font-semibold text-midnight" id="toastTitle"></p>
+                        <p class="text-sm text-secondary" id="toastMessage"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Top Header -->
+        <header class="bg-surface shadow-sm sticky top-0 z-40">
+            <div class="flex items-center justify-between px-8 py-4">
+                <div class="flex items-center gap-4">
+                    <a href="dashboard.html" class="text-steel hover:text-midnight">
+                        <i class="fas fa-arrow-left text-xl"></i>
+                    </a>
+                    <div>
+                        <h1 class="text-xl font-bold text-midnight">Add New Product</h1>
+                        <p class="text-sm text-secondary">Create a new product in your inventory</p>
+                    </div>
+                </div>
+
+                <div class="flex items-center gap-4">
+                    <button class="relative p-2 rounded-lg hover:bg-surface-muted">
+                        <i class="fas fa-bell text-midnight text-xl"></i>
+                        <span
+                            class="absolute -top-1 -right-1 w-5 h-5 bg-error text-white text-xs rounded-full flex items-center justify-center">3</span>
+                    </button>
+
+                    <div class="flex items-center gap-3 pl-4 border-l border-custom">
+                        <div class="text-right">
+                            <p class="text-midnight text-sm font-medium">Admin User</p>
+                            <p class="text-secondary text-xs">Administrator</p>
+                        </div>
+                        <div class="w-10 h-10 rounded-full bg-deep-plum flex items-center justify-center">
+                            <i class="fas fa-user text-cloud"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Form Content -->
+        <div class="p-8">
+            <form id="productForm" class="max-w-4xl mx-auto">
+                <!-- Product Information Card -->
+                <div class="bg-surface rounded-xl shadow-sm border border-custom p-6 mb-6">
+                    <h2 class="text-lg font-bold text-midnight mb-6 flex items-center gap-2">
+                        <i class="fas fa-info-circle text-deep-plum"></i>
+                        Product Information
+                    </h2>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <!-- Product ID -->
+                        <div>
+                            <label class="block text-sm font-medium text-midnight mb-2">
+                                Product ID <span class="text-error">*</span>
+                            </label>
+                            <input type="text" name="productId" placeholder="e.g., PROD-001" required
+                                class="w-full px-4 py-2 rounded-lg border border-custom bg-cloud focus:outline-none focus:ring-2 focus:ring-deep-plum focus:border-transparent">
+                        </div>
+
+                        <!-- Category -->
+                        <div>
+                            <label class="block text-sm font-medium text-midnight mb-2">
+                                Category <span class="text-error">*</span>
+                            </label>
+                            <select id="categorySelect" name="categoryId" required
+                                class="w-full px-4 py-2 rounded-lg border border-custom bg-cloud">
+                                <option value="">Loading categories...</option>
+                            </select>
+                        </div>
+
+                        <!-- Product Title -->
+                        <div class="md:col-span-2">
+                            <label class="block text-sm font-medium text-midnight mb-2">
+                                Product Title <span class="text-error">*</span>
+                            </label>
+                            <input type="text" name="title" placeholder="Enter product title" required
+                                class="w-full px-4 py-2 rounded-lg border border-custom bg-cloud focus:outline-none focus:ring-2 focus:ring-deep-plum focus:border-transparent">
+                        </div>
+
+                        <!-- Price -->
+                        <div>
+                            <label class="block text-sm font-medium text-midnight mb-2">
+                                Price <span class="text-error">*</span>
+                            </label>
+                            <div class="relative">
+                                <span class="absolute left-3 top-2 text-secondary">Rs.</span>
+                                <input type="number" name="price" placeholder="0.00" step="0.01" min="0" required
+                                    class="w-full pl-12 pr-4 py-2 rounded-lg border border-custom bg-cloud focus:outline-none focus:ring-2 focus:ring-deep-plum focus:border-transparent">
+                            </div>
+                        </div>
+
+                        <!-- Status -->
+                        <div>
+                            <label class="block text-sm font-medium text-midnight mb-2">
+                                Status <span class="text-error">*</span>
+                            </label>
+                            <select name="status" required
+                                class="w-full px-4 py-2 rounded-lg border border-custom bg-cloud focus:outline-none focus:ring-2 focus:ring-deep-plum focus:border-transparent">
+                                <option value="true">Available</option>
+                                <option value="false">Sold</option>
+                            </select>
+                        </div>
+
+                        <!-- Size -->
+                        <div>
+                            <label class="block text-sm font-medium text-midnight mb-2">
+                                Size <span class="text-error">*</span>
+                            </label>
+                            <select name="size" required
+                                class="w-full px-4 py-2 rounded-lg border border-custom bg-cloud focus:outline-none focus:ring-2 focus:ring-deep-plum focus:border-transparent">
+                                <option value="">Select size</option>
+                                <option value="XS">XS - Extra Small</option>
+                                <option value="S">S - Small</option>
+                                <option value="M">M - Medium</option>
+                                <option value="L">L - Large</option>
+                                <option value="XL">XL - Extra Large</option>
+                                <option value="XXL">XXL - Double XL</option>
+                                <option value="Free Size">Free Size</option>
+                            </select>
+                        </div>
+
+                        <!-- Condition -->
+                        <div>
+                            <label class="block text-sm font-medium text-midnight mb-2">
+                                Condition <span class="text-error">*</span>
+                            </label>
+                            <select name="condition" required
+                                class="w-full px-4 py-2 rounded-lg border border-custom bg-cloud focus:outline-none focus:ring-2 focus:ring-deep-plum focus:border-transparent">
+                                <option value="">Select condition</option>
+                                <option value="New">New</option>
+                                <option value="Like New">Like New</option>
+                                <option value="Used">Used</option>
+                            </select>
+                        </div>
+
+                        <!-- Color -->
+                        <div>
+                            <label class="block text-sm font-medium text-midnight mb-2">
+                                Color <span class="text-error">*</span>
+                            </label>
+                            <input type="text" name="color" placeholder="e.g., Red, Blue, Black" required
+                                class="w-full px-4 py-2 rounded-lg border border-custom bg-cloud focus:outline-none focus:ring-2 focus:ring-deep-plum focus:border-transparent">
+                        </div>
+
+                        <!-- Description -->
+                        <div class="md:col-span-2">
+                            <label class="block text-sm font-medium text-midnight mb-2">
+                                Description <span class="text-error">*</span>
+                            </label>
+                            <textarea name="description" rows="4" placeholder="Enter product description" required
+                                class="w-full px-4 py-2 rounded-lg border border-custom bg-cloud focus:outline-none focus:ring-2 focus:ring-deep-plum focus:border-transparent resize-none"></textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product Images Card -->
+                <div class="bg-surface rounded-xl shadow-sm border border-custom p-6 mb-6">
+                    <h2 class="text-lg font-bold text-midnight mb-6 flex items-center gap-2">
+                        <i class="fas fa-image text-deep-plum"></i>
+                        Product Images (Maximum 3)
+                    </h2>
+
+                    <!-- Image Upload Slots -->
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
+                        <!-- Image 1 -->
+                        <div>
+                            <label class="block text-sm font-medium text-midnight mb-2">
+                                Image 1 <span class="text-error">*</span>
+                            </label>
+                            <div
+                                class="border-2 border-dashed border-custom rounded-lg p-4 text-center hover:border-deep-plum hover:bg-cloud">
+                                <i class="fas fa-cloud-upload-alt text-3xl text-steel mb-2"></i>
+                                <p class="text-xs text-secondary mb-2">Upload or enter URL</p>
+                                <label
+                                    class="inline-block px-3 py-1 bg-deep-plum text-cloud text-sm rounded cursor-pointer hover:bg-opacity-90">
+                                    <input type="file" id="image1File" accept="image/*" class="hidden">
+                                    Browse
+                                </label>
+                            </div>
+                            <input type="url" id="image1Url" name="images[]" placeholder="Or enter image URL" required
+                                class="w-full px-3 py-2 mt-2 rounded-lg border border-custom bg-cloud text-sm focus:outline-none focus:ring-2 focus:ring-deep-plum focus:border-transparent">
+                            <div id="preview1" class="mt-2 hidden">
+                                <img class="w-full h-32 object-cover rounded-lg border border-custom">
+                                <button type="button" onclick="removeImage(1)"
+                                    class="mt-1 text-xs text-error hover:underline">Remove</button>
+                            </div>
+                        </div>
+
+                        <!-- Image 2 -->
+                        <div>
+                            <label class="block text-sm font-medium text-midnight mb-2">
+                                Image 2
+                            </label>
+                            <div
+                                class="border-2 border-dashed border-custom rounded-lg p-4 text-center hover:border-deep-plum hover:bg-cloud">
+                                <i class="fas fa-cloud-upload-alt text-3xl text-steel mb-2"></i>
+                                <p class="text-xs text-secondary mb-2">Upload or enter URL</p>
+                                <label
+                                    class="inline-block px-3 py-1 bg-deep-plum text-cloud text-sm rounded cursor-pointer hover:bg-opacity-90">
+                                    <input type="file" id="image2File" accept="image/*" class="hidden">
+                                    Browse
+                                </label>
+                            </div>
+                            <input type="url" id="image2Url" name="images[]" placeholder="Or enter image URL"
+                                class="w-full px-3 py-2 mt-2 rounded-lg border border-custom bg-cloud text-sm focus:outline-none focus:ring-2 focus:ring-deep-plum focus:border-transparent">
+                            <div id="preview2" class="mt-2 hidden">
+                                <img class="w-full h-32 object-cover rounded-lg border border-custom">
+                                <button type="button" onclick="removeImage(2)"
+                                    class="mt-1 text-xs text-error hover:underline">Remove</button>
+                            </div>
+                        </div>
+
+                        <!-- Image 3 -->
+                        <div>
+                            <label class="block text-sm font-medium text-midnight mb-2">
+                                Image 3
+                            </label>
+                            <div
+                                class="border-2 border-dashed border-custom rounded-lg p-4 text-center hover:border-deep-plum hover:bg-cloud">
+                                <i class="fas fa-cloud-upload-alt text-3xl text-steel mb-2"></i>
+                                <p class="text-xs text-secondary mb-2">Upload or enter URL</p>
+                                <label
+                                    class="inline-block px-3 py-1 bg-deep-plum text-cloud text-sm rounded cursor-pointer hover:bg-opacity-90">
+                                    <input type="file" id="image3File" accept="image/*" class="hidden">
+                                    Browse
+                                </label>
+                            </div>
+                            <input type="url" id="image3Url" name="images[]" placeholder="Or enter image URL"
+                                class="w-full px-3 py-2 mt-2 rounded-lg border border-custom bg-cloud text-sm focus:outline-none focus:ring-2 focus:ring-deep-plum focus:border-transparent">
+                            <div id="preview3" class="mt-2 hidden">
+                                <img class="w-full h-32 object-cover rounded-lg border border-custom">
+                                <button type="button" onclick="removeImage(3)"
+                                    class="mt-1 text-xs text-error hover:underline">Remove</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <p class="text-xs text-secondary"><i class="fas fa-info-circle"></i> Supported formats: JPG, PNG,
+                        GIF (Max 5MB per image)</p>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="flex items-center justify-end gap-4">
+                    <a href="dashboard.html"
+                        class="px-6 py-3 border border-custom rounded-lg text-midnight hover:bg-surface-muted font-medium">
+                        Cancel
+                    </a>
+                    <button type="submit"
+                        class="px-6 py-3 bg-deep-plum text-cloud rounded-lg hover:bg-opacity-90 font-medium flex items-center gap-2">
+                        <i class="fas fa-plus"></i>
+                        Add Product
+                    </button>
+                </div>
+            </form>
+        </div>
+    </main>
+    <script type="module" src="js/add-product.js"></script>
+
+    <script>
+        // Image preview functionality for all three images
+        for (let i = 1; i <= 3; i++) {
+            const fileInput = document.getElementById(`image${i}File`);
+            const urlInput = document.getElementById(`image${i}Url`);
+            const preview = document.getElementById(`preview${i}`);
+            const previewImg = preview.querySelector('img');
+
+            // File upload handler
+            fileInput.addEventListener('change', function (e) {
+                const file = e.target.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = function (e) {
+                        previewImg.src = e.target.result;
+                        preview.classList.remove('hidden');
+                        // Store as data URL in the URL input for submission
+                        urlInput.value = e.target.result;
+                    }
+                    reader.readAsDataURL(file);
+                }
+            });
+
+            // URL input handler
+            urlInput.addEventListener('input', function (e) {
+                if (e.target.value) {
+                    previewImg.src = e.target.value;
+                    preview.classList.remove('hidden');
+                } else {
+                    preview.classList.add('hidden');
+                }
+            });
+        }
+
+        // Remove image function
+        function removeImage(index) {
+            const fileInput = document.getElementById(`image${index}File`);
+            const urlInput = document.getElementById(`image${index}Url`);
+            const preview = document.getElementById(`preview${index}`);
+
+            fileInput.value = '';
+            urlInput.value = '';
+            preview.classList.add('hidden');
+        }
+
+        // Form validation and submission
+        // document.getElementById('productForm').addEventListener('submit', function(e) {
+        //     e.preventDefault();
+
+        //     // Collect form data
+        //     const formData = new FormData(this);
+
+        //     // Build product object matching the Product class
+        //     const product = {
+        //         productId: formData.get('productId'),
+        //         title: formData.get('title'),
+        //         description: formData.get('description'),
+        //         price: parseFloat(formData.get('price')),
+        //         categoryId: formData.get('categoryId'),
+        //         images: formData.getAll('images[]').filter(url => url.trim() !== ''), // Filter out empty URLs
+        //         status: formData.get('status') === 'true', // Convert to boolean
+        //         size: formData.get('size'),
+        //         condition: formData.get('condition'),
+        //         color: formData.get('color')
+        //     };
+
+        //     // Validate at least one image
+        //     if (product.images.length === 0) {
+        //         alert('Please upload at least one product image!');
+        //         return;
+        //     }
+
+        //     console.log('Product Data:', product);
+
+        //     // Show success message (replace with actual API call)
+        //     alert('Product added successfully!');
+
+        //     // Redirect to dashboard or products page
+        //     // window.location.href = 'dashboard.html';
+        // });
+    </script>
+</body>
+
+</html>

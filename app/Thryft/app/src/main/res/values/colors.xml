@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Core Brand Colors -->
+    <color name="midnight">#0F172A</color>
+    <color name="deep_plum">#6D2E46</color>
+    <color name="steel">#64748B</color>
+    <color name="cloud">#F8FAFC</color>
+
+    <!-- Surface Colors -->
+    <color name="surface">#FFFFFF</color>
+    <color name="surface_muted">#F1F5F9</color>
+
+    <!-- Accent Colors -->
+    <color name="sage">#4D7C6A</color>
+    <color name="amber">#F59E0B</color>
+
+    <!-- Status Colors -->
+    <color name="success">#16A34A</color>
+    <color name="error">#DC2626</color>
+    <color name="info">#2563EB</color>
+
+    <!-- Text Colors -->
+    <color name="text_primary">#0F172A</color>
+    <color name="text_secondary">#475569</color>
+    <color name="text_disabled">#94A3B8</color>
+
+    <!-- Borders & Dividers -->
+    <color name="border">#E2E8F0</color>
+
+    <!-- Common Colors -->
+    <color name="transparent">#00000000</color>
+    <color name="white">#FFFFFF</color>
+    <color name="black">#000000</color>
+</resources>
